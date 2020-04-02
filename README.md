@@ -181,9 +181,9 @@ To validate the test it can be executed from following command
 $ rails test
 ```
 
-## Refrences
+## References
 
-Following are the refrences used while developing this game:
+Following are the references used while developing this game:
 
 ```
 https://en.wikipedia.org/wiki/Boggle

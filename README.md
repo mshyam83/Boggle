@@ -74,7 +74,7 @@ Following files are for rails, here in the home controller we have Api created t
 ----home_controller.rb
 ```
 
-For react we have following files created. Here Home component uses Jumbotron which and GameLoad component. GameLoad component contains all the main logic for populating the board and validaton the words and calling rails api.
+For react we have following files created. Here, Home component uses Jumbotron and GameLoad component. GameLoad component contains all the main logic for populating the board and validaton the words and calling rails api.
 
 ```
 --app
@@ -142,6 +142,32 @@ $ bundle install
 
 This project uses third party boggle Api from Rapid API to get list of valid words from the given 16 letters.
 `https://codebox-boggle-v1.p.rapidapi.com/`
+
+Following is the code sample to call the third pary api from rails:
+
+```
+  private
+
+  def request_api(url)
+    response = Excon.get(
+      url,
+      headers: {
+        'X-RapidAPI-Host' => URI.parse(url).host,
+        'X-RapidAPI-Key' => 'a13a617270msh41bd912366869e6p1178b5jsn825c2115762d'
+      }
+    )
+
+    return nil if response.status != 200
+
+    JSON.parse(response.body)
+  end
+
+  def findwords(boggleSet)
+    request_api(
+      "https://codebox-boggle-v1.p.rapidapi.com/#{(boggleSet)}"
+    )
+  end
+```
 
 ## Test
 

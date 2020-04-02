@@ -10,6 +10,8 @@ Player searches for words that can be constructed from the letters of sequential
 
 One cube is printed with "Qu". This is because Q is nearly always followed by U in English words, and if there were a Q in Boggle, it would be challenging to use if a U did not, by chance, appear next to it. For the purposes of scoring Qu counts as two letters: squid would score two points (for a five-letter word) despite being formed from a chain of only four cubes. Early versions of the game had a "Q" without the accompanying "u".
 
+Points are calculated based on following rule:
+
 ```
 Word length Points
     3, 4        1
@@ -34,7 +36,33 @@ To play the game follow these steps:
 
 ## Clone
 
+I have created this project using React and Ruby on Rails. Following are version has been installed while creating:
+
+Ruby Version:
+
+```
+ruby 2.6.5p114
+```
+
+Rails Version:
+
+```
+Rails 6.0.2.2
+```
+
+React Version:
+
+```
+16.13.1
+```
+
 - Clone this repo to your local machine using `https://github.com/mshyam83/Boggle.git`
+
+To run the project execute:
+
+```
+$ rails s
+```
 
 ## Setup
 
@@ -52,7 +80,7 @@ Command to add router
 yarn add react-router
 ```
 
-Command to create new contoller in rails
+Command to create new controller in rails
 
 ```
 rails g controller <Controllername> <ActionName>
@@ -70,8 +98,7 @@ Command to add style
 yarn add styled-components
 ```
 
-Command to add Axios
-It is used to call Api from react to rails
+Command to add Axios, it is used to call Api from react to rails
 
 ```
 yarn add axios
@@ -81,4 +108,24 @@ Added excon to the Gemfile for creating Api in Rails
 
 ```
 gem 'excon'
+```
+
+Then run:
+
+```
+$ bundle install
+```
+
+## Third Party API
+
+This project uses third party Api from Rapid API to get list of valid words from the given 16 letters.
+`https://codebox-boggle-v1.p.rapidapi.com/`
+
+## Test
+
+Test sample has been created for the rails Api in the home controller for the validwords action.
+To validate the test it can be executed from following command
+
+```
+rails test
 ```

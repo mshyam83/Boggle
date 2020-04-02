@@ -109,7 +109,7 @@ class GameLoad extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      if (this.state.count !== 120) {
+      if (this.state.count !== 180) {
         this.setState(({ count }) => ({ count: count + 1 }));
       }
     }, 1000);
@@ -120,9 +120,9 @@ class GameLoad extends Component {
   }
 
   handleRowClick(rowValue) {
-    if (this.state.count === 120) {
+    if (this.state.count === 180) {
       toast.info(
-        `Game Over, allocated 120 second finished. 
+        `Game Over, allocated 180 second finished. 
         Your final score is ${this.state.totalScore}. 
         To play again, please click on Reset button.`
       );
@@ -322,7 +322,7 @@ class GameLoad extends Component {
                   </div>
                   <div className="pt-4 pb-4">
                     <div className="cta-wrapper">
-                      <Button disabled={this.state.count === 120}>
+                      <Button disabled={this.state.count === 180}>
                         Submit
                       </Button>
                     </div>
@@ -333,11 +333,11 @@ class GameLoad extends Component {
                     </Clearbtn>
                   </div>
                 </div>
-                {this.state.count === 120 ? (
+                {this.state.count === 180 ? (
                   <div className="col-md-12">
                     <div>
                       <Msg>
-                        Game Over, allocated 120 second finished. Your final
+                        Game Over, allocated 180 second finished. Your final
                         score is {this.state.totalScore}. To play again, please
                         click on Reset button.
                       </Msg>

@@ -26,8 +26,59 @@ To play the game follow these steps:
 - Click on the board to select letters.
 - Clicked letters will be displayed in the input box.
 - Word with lenght greater than or equal to 3 is only allowed.
-- To clear the word user can press Clear button.
-- Once done click on submit to see if the word is valid and dictionary word ot not.
+- To clear the word user can press **Clear** button.
+- Once done click on **Submit** to see if the word is valid and dictionary word or not.
 - If valid total score will increment and matched word will be populated.
 - Time is set for 180 seconds after that it will not allow to enter any new words.
-- To restart the game user can press Reset button.
+- To restart the game user can press **Reset** button.
+
+## Clone
+
+- Clone this repo to your local machine using `https://github.com/mshyam83/Boggle.git`
+
+## Setup
+
+Following set of command were used to setup this project:
+
+Command to create new project in ruby on rails with react
+
+```
+rails new <ProjectName> --webpack=react
+```
+
+Command to add router
+
+```
+yarn add react-router
+```
+
+Command to create new contoller in rails
+
+```
+rails g controller <Controllername> <ActionName>
+```
+
+Command to add bootstrap
+
+```
+yarn add bootstrap
+```
+
+Command to add style
+
+```
+yarn add styled-components
+```
+
+Command to add Axios
+It is used to call Api from react to rails
+
+```
+yarn add axios
+```
+
+Added excon to the Gemfile for creating Api in Rails
+
+```
+gem 'excon'
+```

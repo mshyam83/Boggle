@@ -141,7 +141,10 @@ $ bundle install
 ## Third Party API
 
 This project uses third party boggle Api from Rapid API to get list of valid words from the given 16 letters.
-`https://codebox-boggle-v1.p.rapidapi.com/`
+
+```
+https://codebox-boggle-v1.p.rapidapi.com/
+```
 
 Following is the code sample to call the third pary api from rails:
 
@@ -176,4 +179,13 @@ To validate the test it can be executed from following command
 
 ```
 $ rails test
+```
+
+## Refrences
+
+Following are the refrences used while developing this game:
+
+```
+https://en.wikipedia.org/wiki/Boggle
+https://wordtwist.puzzlebaron.com/init.php
 ```

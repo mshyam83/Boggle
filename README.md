@@ -36,7 +36,7 @@ To play the game follow these steps:
 
 ## Clone
 
-I have created this project using React and Ruby on Rails. Following are version has been installed while creating:
+I have created this project using React and Ruby on Rails. Following are version that has been installed while creating:
 
 Ruby Version:
 
@@ -64,6 +64,28 @@ To run the project execute:
 $ rails s
 ```
 
+## Project Structure
+
+Following files are for rails, here in the home controller we have Api created to check for the valid boggle words.
+
+```
+--app
+---controllers
+----home_controller.rb
+```
+
+For react we have following files created. Here Home component uses Jumbotron which and GameLoad component. GameLoad component contains all the main logic for populating the board and validaton the words and calling rails api.
+
+```
+--app
+---javascript
+----components
+-----Home
+------Home.js
+------Jumbotron.js
+------GameLoad.js
+```
+
 ## Setup
 
 Following set of command were used to setup this project:
@@ -71,37 +93,37 @@ Following set of command were used to setup this project:
 Command to create new project in ruby on rails with react
 
 ```
-rails new <ProjectName> --webpack=react
+$ rails new <ProjectName> --webpack=react
 ```
 
 Command to add router
 
 ```
-yarn add react-router
+$ yarn add react-router
 ```
 
 Command to create new controller in rails
 
 ```
-rails g controller <Controllername> <ActionName>
+$ rails g controller <Controllername> <ActionName>
 ```
 
 Command to add bootstrap
 
 ```
-yarn add bootstrap
+$ yarn add bootstrap
 ```
 
 Command to add style
 
 ```
-yarn add styled-components
+$ yarn add styled-components
 ```
 
 Command to add Axios, it is used to call Api from react to rails
 
 ```
-yarn add axios
+$ yarn add axios
 ```
 
 Added excon to the Gemfile for creating Api in Rails
@@ -118,7 +140,7 @@ $ bundle install
 
 ## Third Party API
 
-This project uses third party Api from Rapid API to get list of valid words from the given 16 letters.
+This project uses third party boggle Api from Rapid API to get list of valid words from the given 16 letters.
 `https://codebox-boggle-v1.p.rapidapi.com/`
 
 ## Test
@@ -127,5 +149,5 @@ Test sample has been created for the rails Api in the home controller for the va
 To validate the test it can be executed from following command
 
 ```
-rails test
+$ rails test
 ```

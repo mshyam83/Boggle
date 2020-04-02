@@ -79,24 +79,23 @@ class GameLoad extends Component {
   constructor(props) {
     super(props);
 
+    //GENERATE RANDOW LETTERS FOR THE BOARD
     let rollBoard = [];
     let alphabets = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
-    let cellId = "";
 
     for (let i = 0; i < 4; i++) {
       let children = [];
-      //Inner loop to create children
+      //INNER LOOP TO CREATE TD ELEMENTS
       for (let j = 0; j < 4; j++) {
         let random = parseInt(Math.random() * alphabets.length);
         var rowData = alphabets.charAt(random);
         children.push({ rowData });
       }
-      //Create the parent and add the children
+      //ADD TD TO THE TR
       rollBoard.push({ children });
     }
 
     this.state = {
-      //state is by default an object
       rollBoard: rollBoard,
       count: 0,
       boggleWord: "",
@@ -108,6 +107,7 @@ class GameLoad extends Component {
   }
 
   componentDidMount() {
+    //TIMER OF 180 SECONDS IS SET
     this.interval = setInterval(() => {
       if (this.state.count !== 180) {
         this.setState(({ count }) => ({ count: count + 1 }));
@@ -116,10 +116,12 @@ class GameLoad extends Component {
   }
 
   componentWillUnmount() {
+    //TIMER RESETS
     clearInterval(this.interval);
   }
 
   handleRowClick(rowValue) {
+    //IF THE COUNTER IS 180 SECOND THEN DON'T ALLOW USER TO ADD MORE WORDS.
     if (this.state.count === 180) {
       toast.info(
         `Game Over, allocated 180 second finished. 
@@ -130,14 +132,46 @@ class GameLoad extends Component {
     }
 
     const clickedData = "";
+
+    //HANDLE VALIDATION TO CHECK IF THE SAME CELL IS CLICKED AGAIN OR NOT.
+    if (this.state.clickedData.length > 0) {
+      if (this.state.clickedData.indexOf(event.target.id) > -1) {
+        toast.error("Same letter cell has been used previously.");
+        return;
+      } else {
+        //GET THE PREVIOUS INDEX OF CLICKED CELL WHICH WILL BE USED TO COMAPRE TO CHECK THE RULE FOR ADJACENT CELL.
+        let lastIndex = this.state.clickedData[
+          this.state.clickedData.length - 1
+        ];
+
+        let diff =
+          Number.parseInt(lastIndex, 10) > Number.parseInt(event.target.id, 10)
+            ? lastIndex - event.target.id
+            : event.target.id - lastIndex;
+
+        //CALL VALIDATION FUNCTION TO CHECK THE VALID WORD FORMAT IF CORRECT
+        //THEN CHECK FOR VALID DICTONARY WORD ELSE RETUN
+        let result = this.handleValidCell(diff);
+        if (result === false) {
+          toast.error(
+            "Enter word doesn't follow the rule of adjacent cell where one or more letter doesn't follow rules."
+          );
+          return;
+        }
+      }
+    }
+
+    //SET ARRAY OF THE CELL SELECTED FOR THE WORDS.
     this.setState({
       clickedData: [...this.state.clickedData, event.target.id]
     });
 
+    //LOAD SELECTED CELL INTO THE INPUT BOX
     const data = rowValue.rowData === "Q" ? "Qu" : rowValue.rowData;
     this.setState(({ boggleWord }) => ({ boggleWord: boggleWord + data }));
   }
 
+  //RENDER THE HTML TABLE WITH THE DYNAMICALLY GENERATED LETTERS IN 4*4 TABLE
   renderTableData() {
     return this.state.rollBoard.map((board, index) => {
       let row = 0;
@@ -147,7 +181,7 @@ class GameLoad extends Component {
       return (
         <TR key={row}>
           <TD
-            id={col + 0}
+            id={col + 1}
             onClick={() => this.handleRowClick(board.children[0])}
           >
             {board.children[0].rowData === "Q"
@@ -155,7 +189,7 @@ class GameLoad extends Component {
               : board.children[0].rowData}
           </TD>
           <TD
-            id={col + 1}
+            id={col + 2}
             onClick={() => this.handleRowClick(board.children[1])}
           >
             {board.children[1].rowData === "Q"
@@ -163,7 +197,7 @@ class GameLoad extends Component {
               : board.children[1].rowData}
           </TD>
           <TD
-            id={col + 2}
+            id={col + 3}
             onClick={() => this.handleRowClick(board.children[2])}
           >
             {board.children[2].rowData === "Q"
@@ -171,7 +205,7 @@ class GameLoad extends Component {
               : board.children[2].rowData}
           </TD>
           <TD
-            id={col + 3}
+            id={col + 4}
             onClick={() => this.handleRowClick(board.children[3])}
           >
             {board.children[3].rowData === "Q"
@@ -183,6 +217,12 @@ class GameLoad extends Component {
     });
   }
 
+  //HANDLE THE WORD SUBMITTED
+  //HERE FOLLOWING VALIDATION ARE DONE:
+  //1. IF THE WORDS LENGTH IS GREATER OR EQUAL TO 3.
+  //2. IF SAME WORD HAS PREVIOULSY USED OR NOT.
+  //3. FINALLY VALIDATE AGAINST THE DICTIONARY WORDS.
+  //BASED ON THE VALIDATION SCORE BOARD AND MATCHED WORDS ARE SET.
   handleSubmit(event) {
     event.preventDefault();
 
@@ -190,6 +230,8 @@ class GameLoad extends Component {
 
     //ONLY WORD COUNT GREATER THEN 3 IS ALLOWED
     if (wordlength >= 3) {
+      this.setState({ clickedData: "" });
+
       //IF SAME WORD IS USED THEN ERROR MESSAGE IS REUTRNED FOR DUPLICATE WORD.
       if (this.state.scoredWords.length > 0) {
         if (this.state.scoredWords.indexOf(this.state.boggleWord) > -1) {
@@ -231,7 +273,7 @@ class GameLoad extends Component {
               ]
             });
           } else {
-            toast.error("Enter word is not valid, please try another");
+            toast.error("Enter word is not valid dictionary word.");
           }
           this.setState({ boggleWord: "" });
         })
@@ -242,6 +284,21 @@ class GameLoad extends Component {
       toast.error(
         "Please enter word with lenght greater or equal to three letters."
       );
+    }
+  }
+
+  handleValidCell(diff) {
+    switch (diff) {
+      case 1:
+        return true;
+      case 9:
+        return true;
+      case 10:
+        return true;
+      case 11:
+        return true;
+      default:
+        return false;
     }
   }
 
@@ -271,6 +328,7 @@ class GameLoad extends Component {
   clearInput() {
     event.preventDefault();
     this.setState({ boggleWord: "" });
+    this.setState({ clickedData: "" });
   }
 
   render() {

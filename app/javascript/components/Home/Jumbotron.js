@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Section = styled.section`
   background-color: #4169e1;
   min-height: 100px;
-  padding: 100px 0;
+  padding: 1px 0;
   color: #fff;
 `;
 
@@ -40,21 +40,20 @@ const Jumbotron = () => {
       <div className="container">
         <div className="row">
           <div className="col col-sm-12 col-md-5">
-            <div className="pt-4 mt-4">
+            <div className="pt-1 mt-1">
               <Header>Boggle</Header>
               <Subhead>
-                Boggle is one of the most popular word search games.
+                Boggle is one of the most popular word search games
               </Subhead>
             </div>
           </div>
           <div className="col col-sm-12 col-md-7">
-            <div className="pt-4 mt-4 text-left">
+            <div className="pt-1 mt-1 text-left">
               The rules are simple. You have to find as many words as possible
-              on the grid. You can move from one letter (dice) to another if it
-              is a neighbour (in all directions). You cannot use a letter (dice)
-              more than once in a word. You get points for each word - the more
-              letters the better. The puzzle is solved when you collect 30%, 60%
-              or 90% of the total possible points depending on the difficulty.
+              on the grid. You can move from one letter to another if it is a
+              neighbour (in all directions). You cannot use a letter more than
+              once in a word. You get points for each word - the more letters
+              the better.
             </div>
           </div>
         </div>

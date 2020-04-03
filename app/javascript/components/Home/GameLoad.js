@@ -76,8 +76,8 @@ class GameLoad extends Component {
   currData = 0;
   isStart = true;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     //GENERATE RANDOW LETTERS FOR THE BOARD
     let rollBoard = [];

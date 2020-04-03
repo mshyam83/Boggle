@@ -76,8 +76,8 @@ class GameLoad extends Component {
   currData = 0;
   isStart = true;
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     //GENERATE RANDOW LETTERS FOR THE BOARD
     let rollBoard = [];
@@ -173,6 +173,11 @@ class GameLoad extends Component {
 
   //RENDER THE HTML TABLE WITH THE DYNAMICALLY GENERATED LETTERS IN 4*4 TABLE
   renderTableData() {
+    //LOAD VALID WORDS ARRAY FROM THE RAPID API TO VALIATE AGAINST THE UESR ENTERED WORDS.
+    if (this.state.validWords.length === 0) {
+      this.handleGetValidWordList();
+    }
+
     return this.state.rollBoard.map((board, index) => {
       let row = 0;
       let col = 1;
@@ -241,50 +246,53 @@ class GameLoad extends Component {
         }
       }
 
-      //CREATE STRING OF LETTERS IN BOARD.
-      let boardLetter = "";
-      this.state.rollBoard.map((board, index) => {
-        boardLetter =
-          boardLetter +
-          board.children[0].rowData +
-          board.children[1].rowData +
-          board.children[2].rowData +
-          board.children[3].rowData;
-      });
+      //CHECK FROM ARRAY OF VALID WORD WITH THE ENTERED WORD FROM USER IF ITS VALID AND
+      //IF THE SELECTED LETTERS ARE AS PER THE RULE OF NEIGHBOUR CELLS
+      if (this.state.validWords.indexOf(this.state.boggleWord) > -1) {
+        this.setState(({ totalScore }) => ({
+          totalScore: totalScore + this.handleScore(wordlength)
+        }));
 
-      //CALLING RAILS API TO GET THE LIST OF VALID WORS FROM THE CURRENT BOARD LETTERS
-      axios
-        .get(`/validword?boggleSet=${boardLetter}`)
-        .then(response => {
-          this.setState({ validWords: response.data });
-
-          //CHECK FROM ARRAY OF VALID WORD WITH THE ENTERED WORD FROM USER IF ITS VALID AND
-          //IF THE SELECTED LETTERS ARE AS PER THE RULE OF NEIGHBOUR CELLS
-          if (this.state.validWords.indexOf(this.state.boggleWord) > -1) {
-            this.setState(({ totalScore }) => ({
-              totalScore: totalScore + this.handleScore(wordlength)
-            }));
-
-            this.setState({
-              scoredWords: [
-                ...this.state.scoredWords,
-                this.state.scoredWords.length > 0 ? ", " : "",
-                this.state.boggleWord
-              ]
-            });
-          } else {
-            toast.error("Enter word is not valid dictionary word.");
-          }
-          this.setState({ boggleWord: "" });
-        })
-        .catch(error => {
-          console.log(error);
+        this.setState({
+          scoredWords: [
+            ...this.state.scoredWords,
+            this.state.scoredWords.length > 0 ? ", " : "",
+            this.state.boggleWord
+          ]
         });
+      } else {
+        toast.error("Enter word is not valid dictionary word.");
+      }
+
+      this.setState({ boggleWord: "" });
     } else {
       toast.error(
         "Please enter word with lenght greater or equal to three letters."
       );
     }
+  }
+
+  handleGetValidWordList() {
+    //CREATE STRING OF LETTERS IN BOARD.
+    let boardLetter = "";
+    this.state.rollBoard.map((board, index) => {
+      boardLetter =
+        boardLetter +
+        board.children[0].rowData +
+        board.children[1].rowData +
+        board.children[2].rowData +
+        board.children[3].rowData;
+    });
+
+    //CALLING RAILS API TO GET THE LIST OF VALID WORS FROM THE CURRENT BOARD LETTERS
+    axios
+      .get(`/validword?boggleSet=${boardLetter}`)
+      .then(response => {
+        this.setState({ validWords: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   handleValidCell(diff) {
@@ -342,6 +350,11 @@ class GameLoad extends Component {
                   <div>Timer: {this.state.count}</div>
                   <div>Total Score: {this.state.totalScore}</div>
                   <div>Matched Words: {this.state.scoredWords}</div>
+                  {this.state.count === 180 ? (
+                    <div>Valid Words: {this.state.validWords.join(", ")}</div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="col-md-4">
                   <div className="pt-1 pb-1">&nbsp;</div>

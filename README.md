@@ -58,16 +58,40 @@ React Version:
 
 - Clone this repo to your local machine using `https://github.com/mshyam83/Boggle.git`
 
+After the project is cloned execute following command to update package or install if any missing:
+
+```
+$ yarn install
+```
+
 To run the project execute:
 
 ```
 $ rails s
 ```
 
-After the rails server has been started you can access the Boggle game in local host under following url:
+After the rails server has been started you can access the Boggle game in localhost and port 3000 if avaiable or above command will denote in which port it will be running:
 
 ```
+$ rails s
+=> Booting Puma
+=> Rails 6.0.2.2 application starting in development
+=> Run `rails server --help` for more startup options
+*** SIGUSR2 not implemented, signal based restart unavailable!
+*** SIGUSR1 not implemented, signal based restart unavailable!
+*** SIGHUP not implemented, signal based logs reopening unavailable!
+Puma starting in single mode...
+* Version 4.3.3 (ruby 2.6.5-p114), codename: Mysterious Traveller
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://[::1]:3000
+* Listening on tcp://127.0.0.1:3000
+Use Ctrl-C to stop
+
+e.g.
+
 http://localhost:3000/
+
 ```
 
 ## Project Structure

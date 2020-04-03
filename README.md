@@ -64,6 +64,12 @@ To run the project execute:
 $ rails s
 ```
 
+After the rails server has been started you can access the Boggle game in local host under following url:
+
+```
+http://localhost:3000/
+```
+
 ## Project Structure
 
 Following files are for rails, here in the home controller we have Api created to check for the valid boggle words.
@@ -94,6 +100,9 @@ Command to create new project in ruby on rails with react
 
 ```
 $ rails new <ProjectName> --webpack=react
+
+e.g.
+$ rails new Boggle --webpack=react
 ```
 
 Command to add router
@@ -106,6 +115,9 @@ Command to create new controller in rails
 
 ```
 $ rails g controller <Controllername> <ActionName>
+
+e.g.
+$ rails g controller Home Index
 ```
 
 Command to add bootstrap
@@ -136,6 +148,18 @@ Then run:
 
 ```
 $ bundle install
+```
+
+Command to add notification libary. Here, i have used React-toastify notification component
+
+```
+npm install react-toastify@5.1.1
+```
+
+After we have installed the React-toastify notification component we can use in our Home.js as:
+
+```
+ <ToastContainer autoClose={3000} hideProgressBar />
 ```
 
 ## Third Party API
@@ -180,6 +204,23 @@ To validate the test it can be executed from following command
 ```
 $ rails test
 ```
+
+After running the test you will get output as:
+
+```
+$ rails test
+Run options: --seed 53417
+
+# Running:
+
+..
+
+Finished in 5.853093s, 0.3417 runs/s, 0.3417 assertions/s.
+2 runs, 2 assertions, 0 failures, 0 errors, 0 skips
+
+```
+
+Which shows the rails action test executed without any errors.
 
 ## References
 
